@@ -20,7 +20,8 @@ the presence of power failures during flash writing and erasing.
 
     stm32\Src\flash_sec.c
         Generic API for flash sector manipulation.
-        It abstracts the storage implementation from the platform-specific flash write/erase code.
+        It abstracts the storage implementation from the platform-specific
+	flash write/erase code.
 
     stm32\Src\flash.c
         Flash write/erase implementation
