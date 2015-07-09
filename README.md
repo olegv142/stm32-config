@@ -7,7 +7,7 @@ It supports storing of fixed size data in non-volatile storage using 2 flash sec
 The data is protected by CRC16 checksum. Additional measures are taken to ensure the durability of updates in
 the presence of power failures during flash writing and erasing.
 
-# Major sources
+#### Major sources
 
     stm32\Src\cfg_pool.c
         Configuration data pool over single sector
