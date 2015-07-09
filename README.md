@@ -1,7 +1,7 @@
 stm32-config
 ============
 
-# Framework for reliable storing of configuration data in STM32 embedded flash
+### Framework for reliable storing of configuration data in STM32 embedded flash
 
 It supports storing of fixed size data in non-volatile storage using 2 flash sectors with atomic updates.
 The data is protected by CRC16 checksum. Additional measures are taken to ensure the durability of updates in
@@ -19,7 +19,8 @@ the presence of power failures during flash writing and erasing.
         Automated tests for the above configuration storages
 
     stm32\Src\flash_sec.c
-        Generic API for flash sector manipulation. It abstracts the storage implementation from the platform-specific flash write/erase code.
+        Generic API for flash sector manipulation.
+        It abstracts the storage implementation from the platform-specific flash write/erase code.
 
     stm32\Src\flash.c
         Flash write/erase implementation
