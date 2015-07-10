@@ -4,9 +4,9 @@
 
 #ifdef USE_FULL_ASSERT
 
-void assert_failed(uint8_t* file, uint32_t line);
+void assertion_failed(const char* file, unsigned line);
 
-#define BUG_ON(expr) do { if (expr) assert_failed((uint8_t *)__FILE__, __LINE__); } while (0)
+#define BUG_ON(expr) do { if (expr) assertion_failed(__FILE__, __LINE__); } while (0)
 
 #else
 

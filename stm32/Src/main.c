@@ -190,6 +190,13 @@ void LED_Toggle(void)
   HAL_GPIO_TogglePin(LED_PORT, LED_PIN);
 }
 
+#ifdef USE_FULL_ASSERT
+void assertion_failed(const char* file, unsigned line)
+{
+	assert_failed((uint8_t*)file, line);
+}
+#endif
+
 /* USER CODE END 4 */
 
 #ifdef USE_FULL_ASSERT

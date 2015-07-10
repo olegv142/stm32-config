@@ -3,16 +3,19 @@
 
 int flash_sec_erase(struct flash_sec const* sec)
 {
-	return flash_erase_sec(sec->no);
+	flash_erase(sec->base, 1);
+	return 0;
 }
 
 int flash_sec_write(struct flash_sec const* sec, unsigned off, void const* data, unsigned sz)
 {
-	return flash_write(sec->base + off, data, sz);
+	flash_write(sec->base + off, data, sz);
+	return 0;
 }
 
 int flash_sec_write_bytes(struct flash_sec const* sec, unsigned off, void const* data, unsigned sz)
 {
-	return flash_write_bytes(sec->base + off, data, sz);
+	flash_write_bytes(sec->base + off, data, sz);
+	return 0;
 }
 
