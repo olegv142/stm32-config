@@ -979,7 +979,7 @@
         <name>$PROJ_DIR$\..\Src\config.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\crc16.c</name>
+        <name>$PROJ_DIR$\..\..\config\crc16.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\flash.c</name>
