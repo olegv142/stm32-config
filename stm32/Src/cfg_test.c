@@ -29,12 +29,12 @@ void cfg_test_pool(void)
 	int res;
 	unsigned tout;
 	struct test_item t = {0};
-	struct flash_sec cfg_sec[2];
+	struct flash_sec cfg_sec[2] = {
+		FLASH_SEC_INITIALIZER(2, SEC2_BASE, TEST_POOL_SZ),
+		FLASH_SEC_INITIALIZER(3, SEC3_BASE, TEST_POOL_SZ)
+	};
 	struct cfg_pool  cfg_pool[2];
 	struct test_item const* t_last[2];
-
-	flash_sec_init(&cfg_sec[0], 2, SEC2_BASE, TEST_POOL_SZ);
-	flash_sec_init(&cfg_sec[1], 3, SEC3_BASE, TEST_POOL_SZ);
 
 	res = cfg_pool_init(&cfg_pool[0], sizeof(struct test_item), &cfg_sec[0]); BUG_ON(res);
 	res = cfg_pool_init(&cfg_pool[1], sizeof(struct test_item), &cfg_sec[1]); BUG_ON(res);
@@ -84,15 +84,14 @@ void cfg_test_storage(void)
 	int res;
 	unsigned tout;
 	struct test_item t = {0};
-	struct flash_sec   cfg_sec1;
-	struct flash_sec   cfg_sec[2];
+	struct flash_sec   cfg_sec1 = FLASH_SEC_INITIALIZER(1, SEC1_BASE, TEST_POOL_SZ);
+	struct flash_sec   cfg_sec[2] = {
+		FLASH_SEC_INITIALIZER(2, SEC2_BASE, TEST_STOR_SZ),
+		FLASH_SEC_INITIALIZER(3, SEC3_BASE, TEST_STOR_SZ)
+	};
 	struct cfg_pool    cfg_pool;
 	struct cfg_storage cfg_stor;
 	struct test_item const *p_last, *s_last;
-
-	flash_sec_init(&cfg_sec1,   1, SEC1_BASE, TEST_POOL_SZ);
-	flash_sec_init(&cfg_sec[0], 2, SEC2_BASE, TEST_STOR_SZ);
-	flash_sec_init(&cfg_sec[1], 3, SEC3_BASE, TEST_STOR_SZ);
 
 	res = cfg_pool_init(&cfg_pool, sizeof(struct test_item), &cfg_sec1); BUG_ON(res);
 	res = cfg_stor_init(&cfg_stor, sizeof(struct test_item), cfg_sec);   BUG_ON(res);
