@@ -5,12 +5,12 @@
 
 static inline void LED_On(void)
 {
-	P1OUT |= BIT1;
+	P1OUT |= BIT0;
 }
 
 static inline void LED_Off(void)
 {
-	P1OUT &= ~BIT1;
+	P1OUT &= ~BIT0;
 }
 
 // Setup timer to power down the board. The timer clock is ~12KHz.
@@ -24,7 +24,8 @@ static inline void timer_start(unsigned clocks)
 	TACTL = TASSEL_1 +  MC_2; // ACLK counting up
 }
 
-#define SEC_BASE(n) (0xffffU-(n+1)*FLASH_SEG_SZ)
+// Count segments from the flash end since the start of the flash depends on the capacity
+#define SEC_BASE(n) (0x10000ULL-(n+1)*FLASH_SEG_SZ)
 
 __no_init __root uint8_t const cfg_sec_1[FLASH_SEG_SZ] @ SEC_BASE(1);
 __no_init __root uint8_t const cfg_sec_2[FLASH_SEG_SZ] @ SEC_BASE(2);
@@ -58,7 +59,10 @@ void cfg_test()
 
 	if (p_last) {
 		tout = p_last->cnt * TOUT_PRIME;
+	} else {
+		LED_On();
 	}
+
 	timer_start(tout);
 
 	res = cfg_stor_init(&cfg_stor, sizeof(struct test_item), cfg_sec); BUG_ON(res);
@@ -66,12 +70,6 @@ void cfg_test()
 
 	BUG_ON(p_last && s_last && p_last->cnt != s_last->cnt && p_last->cnt != s_last->cnt + 1);
 	BUG_ON(p_last && !s_last);
-
-	if (p_last && s_last) {
-		LED_Off();
-	} else {
-		LED_On();
-	}
 
 	if (s_last) {
 		t.cnt = s_last->cnt;
@@ -96,10 +94,15 @@ void cfg_test()
 void main(void)
 {
 	WDTCTL = WDTPW + WDTHOLD; // Stop WDT
+	BCSCTL3 = LFXT1S_2; // Enable VLO as ACLK source
 
-	P1DIR = BIT1|BIT6; // LEDs pins output
+	P1DIR = BIT0|BIT6; // LEDs pins output
 	P1SEL = BIT6;      // TA0.1
-	TACCTL1 = OUTMOD_4;// Set mode
+	TACCTL1 = OUTMOD_1;// Set mode
+
+	LED_On();
+	__delay_cycles(50000);
+	LED_Off();
 
 	cfg_test();
 }
@@ -107,6 +110,7 @@ void main(void)
 void assertion_failed(const char* file, unsigned line)
 {
 	for (;;) {
+		// Fast blinking red LED
 		LED_On();
 		__delay_cycles(70000);
 		LED_Off();

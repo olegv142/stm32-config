@@ -55,6 +55,6 @@ the presence of power failures during flash writing and erasing.
 The STM32 project is created for STM32-H405 board with STM32F405RGT6 MCU
 https://www.olimex.com/Products/ARM/ST/STM32-H405/
 
-The MSP430 project is created for Launch Pad board with MSP430G2332 MCU
+The MSP430 project is created for Launch Pad board with MSP430G2553 MCU
 http://www.ti.com/tool/msp-exp430g2
 

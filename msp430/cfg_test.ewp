@@ -97,7 +97,7 @@
         </option>
         <option>
           <name>OGChipSelectMenu</name>
-          <state>MSP430G2332	MSP430G2332</state>
+          <state>MSP430G2553	MSP430G2553</state>
         </option>
         <option>
           <name>GStackHeapOverride</name>
@@ -231,7 +231,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>11111</state>
+          <state>00000</state>
         </option>
         <option>
           <name>CCObjUseModuleName</name>
@@ -347,7 +347,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -356,7 +356,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CInput</name>
@@ -716,7 +716,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\lnk430G2332.xcl</state>
+          <state>$TOOLKIT_DIR$\CONFIG\lnk430G2553.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
