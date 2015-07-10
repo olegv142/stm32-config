@@ -235,7 +235,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>00000000</state>
+          <state>11111110</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -310,6 +310,7 @@
           <state>$PROJ_DIR$\..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc</state>
           <state>$PROJ_DIR$\..\Drivers\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
+          <state>$PROJ_DIR$\..\..\config</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -329,7 +330,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -338,7 +339,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -963,10 +964,10 @@
     <group>
       <name>User</name>
       <file>
-        <name>$PROJ_DIR$\..\Src\cfg_pool.c</name>
+        <name>$PROJ_DIR$\..\..\config\cfg_pool.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\cfg_storage.c</name>
+        <name>$PROJ_DIR$\..\..\config\cfg_storage.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\cfg_test.c</name>

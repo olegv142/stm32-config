@@ -3,5 +3,5 @@
 
 void cfg_init(void)
 {
-	//cfg_test_storage();
+	cfg_test_storage();
 }
