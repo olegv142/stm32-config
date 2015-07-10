@@ -3,7 +3,9 @@
 #include <stddef.h>
 #include <string.h>
 
-#define MARKER_SZ sizeof(struct cfg_rec_marker)
+#define ALIGN_SZ   sizeof(int)
+#define ALIGN_MASK (ALIGN_SZ-1)
+#define MARKER_SZ  sizeof(struct cfg_rec_marker)
 
 /* Validator values */
 #define VALID   0 
@@ -117,7 +119,7 @@ int cfg_pool_validate(struct cfg_pool* p)
 int cfg_pool_init(struct cfg_pool* p, unsigned item_sz, struct flash_sec const*	flash)
 {
 	p->item_sz = item_sz;
-	p->item_sz_aligned = (item_sz + 3) & ~3;
+	p->item_sz_aligned = (item_sz + ALIGN_MASK) & ~ALIGN_MASK;
 	p->flash = flash;
 	p->put_cnt = p->erase_cnt = 0;
 	cfg_pool_reset(p);
