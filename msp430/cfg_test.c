@@ -13,6 +13,11 @@ static inline void LED_Off(void)
 	P1OUT &= ~BIT1;
 }
 
+// Setup timer to power down the board. The timer clock is ~12KHz.
+// We connect timer output (TA0.1 - P1.6) to the ground and pass power
+// through 510 ohm resistor so after timer expiration the timer just
+// trigger power down.
+//
 static inline void timer_start(unsigned clocks)
 {
 	TACCR1 = clocks;
