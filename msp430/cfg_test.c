@@ -59,8 +59,6 @@ void cfg_test()
 
 	if (p_last) {
 		tout = p_last->cnt * TOUT_PRIME;
-	} else {
-		LED_On();
 	}
 
 	timer_start(tout);
