@@ -18,7 +18,7 @@ __no_init __root uint8_t const cfg_sec_2[SECTOR_SZ] @ SEC2_BASE;
 __no_init __root uint8_t const cfg_sec_3[SECTOR_SZ] @ SEC3_BASE;
 
 struct test_item {
-	uint16_t cnt;
+	unsigned cnt;
 };
 
 #define TOUT_PRIME 3571
