@@ -57,9 +57,10 @@ struct test_item cfg_t = {0};
 
 __no_init unsigned cfg_last_writes;
 
-#define TOUT_PRIME 3571
-#define TOUT_DEF   10000
-#define MAX_WRITES 1000000
+#define TOUT_PRIME   3571
+#define TOUT_DEF     10000
+#define MAX_WRITES   1000000
+#define REPEAT_READS 8
 
 void test_stop(void)
 {
@@ -101,11 +102,17 @@ void cfg_test(void)
 	s_last = cfg_stor_get(&cfg_stor);
 
 	if (s_last) {
+		int i;
 		cfg_t.cnt = s_last->cnt;
 		BUG_ON(!p_last[0] && !p_last[1]);
 		BUG_ON(cnt != cfg_t.cnt && cnt != (test_cnt_t)(cfg_t.cnt + 1));
 		if (cfg_t.cnt >= MAX_WRITES) {
 			test_stop();
+		}
+		for (i = 0; i < REPEAT_READS; ++i) {
+			res = cfg_stor_init(&cfg_stor, sizeof(struct test_item), cfg_stor_sec); BUG_ON(res);
+			s_last = cfg_stor_get(&cfg_stor);
+			BUG_ON(!s_last || cfg_t.cnt != s_last->cnt);
 		}
 	} else {
 		// starting with empty flash
@@ -136,9 +143,10 @@ void main(void)
 	WDTCTL = WDTPW + WDTHOLD; // Stop WDT
 	BCSCTL3 = LFXT1S_2; // Enable VLO as ACLK source
 
-	P1DIR = BIT0|BIT6; // LEDs pins output
-	P1SEL = BIT6;      // TA0.1
-	TACCTL1 = OUTMOD_1;// Set mode
+	P1OUT = 0;         // Reset outputs
+	P1DIR = BIT0|BIT6; // LEDs pins output mode
+	P1SEL = BIT6;      // TA0.1 -> P1.6
+	TACCTL1 = OUTMOD_1;// Set timer out mode
 
 	LED_On();
 	__delay_cycles(50000);
@@ -149,6 +157,9 @@ void main(void)
 
 void assertion_failed(const char* file, unsigned line)
 {
+	if (!(P1IN & BIT6)) {
+		P1SEL = 0; // Disconnect timer to prevent powering down
+	}
 	for (;;) {
 		// Fast blinking red LED
 		LED_On();
