@@ -59,8 +59,15 @@ __no_init unsigned cfg_last_writes;
 
 #define TOUT_PRIME 3571
 #define TOUT_DEF   10000
+#define MAX_WRITES 1000000
 
-void cfg_test()
+void test_stop(void)
+{
+	LED_On();
+	for (;;) __no_operation();
+}
+
+void cfg_test(void)
 {
 	int res;
 	test_cnt_t cnt = 0;
@@ -97,6 +104,9 @@ void cfg_test()
 		cfg_t.cnt = s_last->cnt;
 		BUG_ON(!p_last[0] && !p_last[1]);
 		BUG_ON(cnt != cfg_t.cnt && cnt != (test_cnt_t)(cfg_t.cnt + 1));
+		if (cfg_t.cnt >= MAX_WRITES) {
+			test_stop();
+		}
 	} else {
 		// starting with empty flash
 		cfg_t.cnt = 0;
